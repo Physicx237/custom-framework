@@ -48,7 +48,7 @@ class AppFactoryStatic {
             const methodPaths = [];
             
             for (let i = 1; i < propertyKey.length; i++) {
-                methodPaths.push({path: Reflect.getMetadata(propertyKey[i], item, propertyKey[i]), methods: propertyKey[i]})
+                methodPaths.push({ path: Reflect.getMetadata(propertyKey[i], item, propertyKey[i]).path, methods: propertyKey[i], queryMethod: Reflect.getMetadata(propertyKey[i], item, propertyKey[i]).queryMethod})
             }
 
             // Общие метаданные о контроллере
@@ -71,7 +71,8 @@ class AppFactoryStatic {
         dependenciesRoutesMetadata.forEach((item, index) => {
             for (let i = 0; i < 2; i++) {
                 const path = item.controllerPath + item.path[i].path;
-                routes.push(Router().get(path, (req, res) => {
+                const method = item.path[i].queryMethod
+                routes.push(Router()[method](path, (req, res) => {
                     res.json(this.appInstances[index][item.path[i].methods]());
                 }));
             }

@@ -1,3 +1,4 @@
+import { Post } from "../framework/decorators/post.decorator"
 import { Get } from "./../framework"
 import { Controller } from "./../framework"
 import { PostsService, UsersService } from "./app.service"
@@ -11,7 +12,7 @@ export class PostsController {
         return this.postsService.getData()
     }
 
-    @Get('two')
+    @Post('two')
     getPosts() {
         return this.postsService.getPosts()
     }
@@ -26,7 +27,7 @@ export class UsersController {
         return this.usersService.getData()
     }
 
-    @Get('four')
+    @Post('four')
     getUsers() {
         return this.usersService.getUsers()
     }
